@@ -7,22 +7,26 @@ var createWorkItems = function () {
   ];
 };
 
-var createStages = function (backlog) {
-  return [
-    new Stage({name:"Analysis", backlog: backlog}),
-    new Stage({name:"Design"}),
-    new Stage({name:"Code"}),
-    new Stage({name:"Test"}),
-    new Stage({name:"Release"})
-  ];
+var createStages = function () {
+    
+    var release = new Stage({name:"Release",  nextStage: null});
+    var test = new Stage({name:"Test",  nextStage: release});
+    var code = new Stage({name:"Code",  nextStage: test});
+    var design = new Stage({name:"Design",  nextStage: code});
+
+    var backlog = new Stage({name:"Backlog", workItems: createWorkItems()});
+
+    var analysis = new Stage({name:"Analysis", previousStage: backlog, nextStage: design});
+
+  return [analysis, design, code, test, release];
 };
 
 $(function () {
 
   var startup = function () {
-    var backlog = new Backlog(createWorkItems());
-    var board = new Board({stages: createStages(backlog)});
+    var board = new Board({stages: createStages()});
     var controlPanel = new ControlPanel();
+    var backlog = new Backlog(createWorkItems());
     var flowmulator = new Flowmulator({backlog:backlog, board:board, controlPanel:controlPanel});
     new FlowmulatorView({model:flowmulator}).render();
   };

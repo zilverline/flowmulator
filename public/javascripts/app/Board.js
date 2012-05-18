@@ -5,7 +5,7 @@ var Board = Backbone.Model.extend({
   runOneDay: function() {
     _(this.get("stages")).forEach(function (stage) {
       stage.runOneDay();
-    });
+    }); 
   }
 });
 

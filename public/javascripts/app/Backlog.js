@@ -11,11 +11,11 @@ var BacklogView = Backbone.View.extend({
   },
 
   render: function() {
-//    this.$el.empty();
-//    var self = this;
-//    this.collection.forEach(function(workItem) {
-//      self.$el.append(new WorkItemView({model: workItem}).render().el);
-//    });
+    this.$el.empty();
+    var self = this;
+    this.collection.forEach(function(workItem) {
+      self.$el.append(new WorkItemView({model: workItem}).render().el);
+    });
 //    return this;
     this.collection.each(this.addWorkItem);
   },
