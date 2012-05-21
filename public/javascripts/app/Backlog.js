@@ -16,8 +16,8 @@ var BacklogView = Backbone.View.extend({
     this.collection.forEach(function(workItem) {
       self.$el.append(new WorkItemView({model: workItem}).render().el);
     });
-//    return this;
-    this.collection.each(this.addWorkItem);
+    return this;
+    //this.collection.each(this.addWorkItem);
   },
   addWorkItem: function(workItem) {
     this.$el.append(new WorkItemView({model:workItem}).render().el);
