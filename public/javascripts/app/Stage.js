@@ -8,21 +8,26 @@ var Stage = Backbone.Model.extend({
   },
   runOneDay:function () {
     this.set("velocity", this.determineVelocity());
+    console.log(this.get("workItems"));
+
     var workItems = this.get("workItems");
-    console.log(this.get("name"), this.get("previousStage"), this.get("nextStage"), workItems);
     
     if(workItems.length == 0){
-      console.log("Geen werk! Aan de slag!!");
+      //Geen werk waar de stage mee bezig is.
 
       if(this.get("name") == "Analysis"){
+        //Only Analysis can pull in work if it has velocity points left.
+        this.set("workItems", this.getWork(this.get("velocity"), this.get("previousStage").get("workItems")));
         
-        this.getWork(this.get("velocity"));
-      
-        console.log(workItems);
+      } else {
+        //Other stages can only work on items that are Done in the previous stage.
+
       }
 
     }
 
+    console.log(this.get("name"), this.get("previousStage"), this.get("nextStage"), workItems);
+    
 
   },
   determineVelocity:function () {
@@ -30,9 +35,21 @@ var Stage = Backbone.Model.extend({
   },
 
   //Haal werk uit de vorige stage aan de hand van hoeveel velocity je hebt
-  getWork:function(velocity){
-    
+  getWork:function(velocity, workItemsToPickup){
+    var returnList = [];
+    var totalVelocity = 0;
+    for (var i = 0; i < workItemsToPickup.length; i++) {
+      var workItem = workItemsToPickup[i];
 
+      if (totalVelocity + workItem.analysis <= velocity) {
+        returnList.push(workItem);
+        workItemsToPickup.shift(1);
+        totalVelocity += workItem.analysis;
+      } else {
+         break;
+      }
+    };
+    return returnList;
   }
 });
 
