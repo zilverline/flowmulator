@@ -11,6 +11,7 @@
 		<script type="text/javascript" src="javascripts/ext/icanhaz.js"></script>
 
 		<script type="text/javascript" src="javascripts/app/WorkItem.js"></script>
+		<script type="text/javascript" src="javascripts/app/ReadyWorkSource.js"></script>
 		<script type="text/javascript" src="javascripts/app/Backlog.js"></script>
 		<script type="text/javascript" src="javascripts/app/Stage.js"></script>
 		<script type="text/javascript" src="javascripts/app/Board.js"></script>
@@ -29,17 +30,35 @@
 		</script>
 
 		<script id="stage-template" type="text/template">
+      <button class="run-stage">Run stage</button>
 			<div class="header">
 				<h1><%= stage.get('name') %></h1>
 				<h3>Velocity: <%= stage.get('velocity') %></h3>
 			</div>
-			<div>
-				Stage items
-			</div>
+      <div class="column">
+        <div class="header">
+          <h2>In Progress</h2>
+        </div>
+        <ul class="work-items">
+        <% _(stage.get('inProgressWork')).each(function(workItem){ %>
+          <li class="work-item"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></li>
+        <% }) %>
+        </ul>
+      </div>
+      <div class="column">
+        <div class="header">
+          <h2>Ready</h2>
+        </div>
+        <ul class="work-items">
+          <% _(stage.get('readyWork')).each(function(workItem){ %>
+          <li class="work-item"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></li>
+          <% }) %>
+        </ul>
+      </div>
 		</script>
 
 		<script id="control-panel-template" type="text/template">
-			<button id="run-one-day">Run one day</button>
+			<!--<button id="run-one-day">Run one day</button>-->
 		</script>
 
 		<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" charset="utf-8">

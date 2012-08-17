@@ -12,6 +12,7 @@ var Board = Backbone.Model.extend({
 var BoardView = Backbone.View.extend({
   id: "board",
   tagName: "ul",
+
   render: function() {
     var self = this;
     _(this.model.get("stages")).forEach(function (stage) {

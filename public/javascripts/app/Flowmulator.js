@@ -13,7 +13,7 @@ var Flowmulator = Backbone.Model.extend({
 
 var FlowmulatorView = Backbone.View.extend({
   render: function() {
-    $("#container").append(new BacklogView({collection: this.model.get("backlog")}).render().el);
+    $("#container").append(new BacklogView({model: this.model.get("backlog")}).render().el);
     $("#container").append(new BoardView({model: this.model.get("board")}).render().el);
     $("#container").append(new ControlPanelView({model: this.model.get("controlPanel")}).render().el);
     return this;
