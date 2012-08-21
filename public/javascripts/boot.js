@@ -6,15 +6,15 @@ var createWorkItems = function () {
 };
 
 var createStages = function (backlog) {
-  var analysis = new Stage({name:"Analysis", workSource:backlog});
-  var design = new Stage({name:"Design", workSource:analysis});
+  var analysis = new Stage({name:"Analysis", readyWorkProvider:backlog});
+  var design = new Stage({name:"Design", readyWorkProvider:analysis});
   return [analysis, design];
 };
 
 $(function () {
 
   var startup = function () {
-    var backlog = new ReadyWorkSource({readyWork:createWorkItems()});
+    var backlog = new ReadyWorkProvider({readyWork:createWorkItems()});
     var board = new Board({stages:createStages(backlog)});
     var controlPanel = new ControlPanel();
     var flowmulator = new Flowmulator({backlog:backlog, board:board, controlPanel:controlPanel});

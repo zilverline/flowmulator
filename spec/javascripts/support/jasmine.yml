@@ -19,7 +19,9 @@ src_files:
     - public/javascripts/ext/backbone.js
     - public/javascripts/ext/icanhaz.js
     - public/javascripts/app/WorkItem.js
-    - public/javascripts/**/*.js
+    - public/javascripts/app/ReadyWorkProvider.js
+    - public/javascripts/app/Backlog.js
+    - public/javascripts/app/Stage.js
 
 # stylesheets
 #

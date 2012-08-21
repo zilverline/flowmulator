@@ -1,3 +1,3 @@
-var BacklogView = ReadyWorkSourceView.extend({
+var BacklogView = ReadyWorkProviderView.extend({
   id: "backlog"
 });
