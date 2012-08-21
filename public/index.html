@@ -22,11 +22,34 @@
 
 		<script id="work-item-template" type="text/template">
 			<h1><%= workItem.get('name') %></h1>
-			<div>Analysis: <%= workItem.get('analysis') %></div>
-			<div>Design: <%= workItem.get('design') %></div>
-			<div>Code: <%= workItem.get('code') %></div>
-			<div>Test: <%= workItem.get('test') %></div>
-			<div>Release: <%= workItem.get('release') %></div>
+      <table class="stage-efforts">
+        <tr>
+          <td>Analysis:</td>
+          <td><%= workItem.get('analysis') %></td>
+        </tr>
+        <tr>
+          <td>Design:</td>
+          <td><%= workItem.get('design') %></td>
+        </tr>
+        <tr>
+          <td>Code:</td>
+          <td><%= workItem.get('code') %></td>
+        </tr>
+        <tr>
+          <td>Test:</td>
+          <td><%= workItem.get('test') %></td>
+        </tr>
+        <tr>
+          <td>Release:</td>
+          <td><%= workItem.get('release') %></td>
+        </tr>
+        <% if(workItem.get('remainingEffortInStage') > 0) { %>
+        <tr>
+          <td>Remaining effort:</td>
+          <td><%= workItem.get('remainingEffortInStage') %></td>
+        </tr>
+        <% } %>
+      </table>
 		</script>
 
 		<script id="stage-template" type="text/template">

@@ -5,8 +5,8 @@ describe("Stage", function() {
   var anotherFeature;
   beforeEach(function () {
     stage = new Stage({name: "Analysis"});
-    someFeature = new WorkItem({name: "Some feature", analysis: 3});
-    anotherFeature = new WorkItem({name: "Another feature", analysis: 5});
+    someFeature = new WorkItem({name: "Some feature", analysis: 3, remainingEffortInStage: 3});
+    anotherFeature = new WorkItem({name: "Another feature", analysis: 5, remainingEffortInStage: 5});
   });
 
   describe("given a stage with a ready work provider", function() {
@@ -39,6 +39,7 @@ describe("Stage", function() {
 
         expect(stage.get("inProgressWork").length).toEqual(0);
         expect(stage.get("readyWork").length).toEqual(1);
+        expect(someFeature.get("remainingEffortInStage")).toEqual(0);
       });
 
       it("should continue moving work from in progress to ready until velocity is consumed", function () {
@@ -49,6 +50,8 @@ describe("Stage", function() {
 
         expect(stage.get("inProgressWork").length).toEqual(1);
         expect(stage.get("readyWork").length).toEqual(1);
+        expect(someFeature.get("remainingEffortInStage")).toEqual(0);
+        expect(anotherFeature.get("remainingEffortInStage")).toEqual(3);
       });
 
     });
@@ -61,6 +64,7 @@ describe("Stage", function() {
 
       expect(stage.get("inProgressWork").length).toEqual(1);
       expect(stage.get("readyWork").length).toEqual(0);
+      expect(someFeature.get("remainingEffortInStage")).toEqual(1);
     });
 
     it("should do nothing when there is remaining velocity but no in progress work and no ready work", function () {

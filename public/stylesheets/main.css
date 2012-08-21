@@ -45,3 +45,11 @@ li.work-item {
   padding: 10px;
   margin-top: 10px;
 }
+
+table.stage-efforts {
+  width: 100%;
+}
+
+table.stage-efforts td:first-child {
+  width: 75%;
+}

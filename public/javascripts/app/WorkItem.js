@@ -5,7 +5,8 @@ var WorkItem = Backbone.Model.extend({
     design:0,
     code:0,
     test:0,
-    release:0
+    release:0,
+    remainingEffortInStage:0
   }
 });
 

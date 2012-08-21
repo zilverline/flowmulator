@@ -44,6 +44,7 @@ var Stage = ReadyWorkProvider.extend({
   _pullWorkFromProvider:function () {
     var work = this.get("readyWorkProvider").getNextReadyWork();
     if (work !== undefined) {
+      work.set("remainingEffortInStage", work.get(this.get("name").toLowerCase()));
       var inProgressWork = this.get("inProgressWork");
       inProgressWork.push(work);
       this.trigger("change:inProgressWork");
@@ -53,19 +54,22 @@ var Stage = ReadyWorkProvider.extend({
   },
 
   _performWork: function() {
-    var velocity = this.get("remainingVelocity");
+    var remainingVelocity = this.get("remainingVelocity");
 
     var work = this.get("inProgressWork").shift();
-    var workForStage = work.get(this.get("name").toLowerCase());
-    var leftOver = workForStage - velocity;
-    if(leftOver <= 0) {
+    var effort = work.get("remainingEffortInStage");
+    var remainingEffort = effort - remainingVelocity;
+    if(remainingEffort <= 0) {
+      work.set("remainingEffortInStage", 0);
       this.get("readyWork").push(work);
       this.trigger("change:readyWork");
     } else {
+      work.set("remainingEffortInStage", remainingEffort);
       this.get("inProgressWork").unshift(work);
+      this.trigger("change:inProgressWork");
     }
 
-    this.set("remainingVelocity", Math.max(velocity - workForStage, 0));
+    this.set("remainingVelocity", Math.max(remainingVelocity - effort, 0));
   },
 
   _updateVelocity:function () {
