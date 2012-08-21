@@ -16,32 +16,32 @@ var Stage = ReadyWorkProvider.extend({
   },
 
   runStage:function () {
-    this.updateVelocity();
+    this._updateVelocity();
 
-    while(this.canPerformWork()) {
-      if (this.emptyInProgressWork()) {
-        if(!this.canPullWork()) {
+    while(this._canPerformWork()) {
+      if (this._emptyInProgressWork()) {
+        if(!this._canPullWork()) {
           break;
         }
-        this.pullWorkFromProvider();
+        this._pullWorkFromProvider();
       }
-      this.performWork();
+      this._performWork();
     }
   },
 
-  canPerformWork: function() {
+  _canPerformWork: function() {
     return this.get("remainingVelocity") > 0;
   },
 
-  canPullWork: function() {
+  _canPullWork: function() {
     return this.get("readyWorkProvider").hasMoreReadyWork();
   },
 
-  emptyInProgressWork:function () {
+  _emptyInProgressWork:function () {
     return this.get("inProgressWork").length == 0;
   },
 
-  pullWorkFromProvider:function () {
+  _pullWorkFromProvider:function () {
     var work = this.get("readyWorkProvider").getNextReadyWork();
     if (work !== undefined) {
       var inProgressWork = this.get("inProgressWork");
@@ -52,7 +52,7 @@ var Stage = ReadyWorkProvider.extend({
     }
   },
 
-  performWork: function() {
+  _performWork: function() {
     var velocity = this.get("remainingVelocity");
 
     var work = this.get("inProgressWork").shift();
@@ -68,13 +68,13 @@ var Stage = ReadyWorkProvider.extend({
     this.set("remainingVelocity", Math.max(velocity - workForStage, 0));
   },
 
-  updateVelocity:function () {
-    var velocity = this.randomVelocity();
+  _updateVelocity:function () {
+    var velocity = this._randomVelocity();
     this.set("velocity", velocity);
     this.set("remainingVelocity", velocity);
   },
 
-  randomVelocity: function() {
+  _randomVelocity: function() {
     return Math.floor(Math.random() * 6) + 1;
   }
 });

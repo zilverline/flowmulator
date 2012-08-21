@@ -19,7 +19,7 @@ describe("Stage", function() {
 
     it("should pull work from a ready work provider", function() {
       readyWorkProvider.set("readyWork", [someFeature]);
-      spyOn(stage, "randomVelocity").andReturn(1);
+      spyOn(stage, "_randomVelocity").andReturn(1);
 
       stage.runStage();
 
@@ -33,7 +33,7 @@ describe("Stage", function() {
       });
 
       it("should move work from in progress to ready when there is enough velocity", function() {
-        spyOn(stage, "randomVelocity").andReturn(3);
+        spyOn(stage, "_randomVelocity").andReturn(3);
 
         stage.runStage();
 
@@ -43,7 +43,7 @@ describe("Stage", function() {
 
       it("should continue moving work from in progress to ready until velocity is consumed", function () {
         readyWorkProvider.set("readyWork", [anotherFeature]);
-        spyOn(stage, "randomVelocity").andReturn(5);
+        spyOn(stage, "_randomVelocity").andReturn(5);
 
         stage.runStage();
 
@@ -55,7 +55,7 @@ describe("Stage", function() {
 
     it("should not move work from in progress to ready when there is not enough velocity", function() {
       readyWorkProvider.set("readyWork", [someFeature, anotherFeature]);
-      spyOn(stage, "randomVelocity").andReturn(2);
+      spyOn(stage, "_randomVelocity").andReturn(2);
 
       stage.runStage();
 
@@ -64,7 +64,7 @@ describe("Stage", function() {
     });
 
     it("should do nothing when there is remaining velocity but no in progress work and no ready work", function () {
-      spyOn(stage, "randomVelocity").andReturn(1);
+      spyOn(stage, "_randomVelocity").andReturn(1);
 
       stage.runStage();
 
