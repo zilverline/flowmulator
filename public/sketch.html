@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Flowmulator sketch</title>
+  <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" media="screen" charset="utf-8">
+  <style type="text/css">
+    html, body {
+      height: 100%;
+    }
+
+    .container-fluid {
+      min-height: 100%;
+    }
+
+    #control-panel {
+      margin: 25px 0 25px 0;
+    }
+
+    .stage-header {
+      border-bottom: 1px solid black;
+      text-align: center;
+    }
+
+    #board {
+      white-space: nowrap;
+    }
+
+    .work-item-header {
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .work-items {
+      margin: 0 2% 0 2%;
+    }
+
+    .work-item {
+      padding: 5px;
+      background-color: #eee;
+      font-size: 12px;
+      overflow: hidden;
+      margin-top: 6%;
+    }
+
+    h4 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div id="control-panel" class="row-fluid">
+      <div class="span12">
+        <button class="btn">Run it!</button>
+      </div>
+    </div>
+    <div id="board" class="row-fluid">
+      <div class="span2">
+        <div class="stage-header">
+          <h1>Backlog</h1>
+        </div>
+        <div class="row-fluid">
+          <div class="span12">
+            <h4>All items</h4>
+
+            <div class="work-items">
+              <div class="work-item">
+                <div class="work-item-header">Feature #4</div>
+                <div>Analysis: 1</div>
+                <div>Design: 2</div>
+                <div>Code: 3</div>
+                <div>Test: 2</div>
+                <div>Release: 1</div>
+              </div>
+              <div class="work-item">
+                <div class="work-item-header">Feature #4</div>
+                <div>Analysis: 1</div>
+                <div>Design: 2</div>
+                <div>Code: 3</div>
+                <div>Test: 2</div>
+                <div>Release: 1</div>
+              </div>
+              <div class="work-item">
+                <div class="work-item-header">Feature #4</div>
+                <div>Analysis: 1</div>
+                <div>Design: 2</div>
+                <div>Code: 3</div>
+                <div>Test: 2</div>
+                <div>Release: 1</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="span2">
+        <div class="stage-header">
+          <h1>Analysis</h1>
+        </div>
+        <div class="row-fluid">
+          <div class="span6">
+            <h4>Doing</h4>
+            <div class="work-items">
+              <div class="work-item">
+                <div class="work-item-header">Feature #4</div>
+                <div>Analysis: 1</div>
+                <div>Design: 2</div>
+                <div>Code: 3</div>
+                <div>Test: 2</div>
+                <div>Release: 1</div>
+              </div>
+            </div>
+          </div>
+          <div class="span6">
+            <h4>Ready</h4>
+          </div>
+        </div>
+      </div>
+      <div class="span2">
+        <div class="stage-header">
+          <h1>Design</h1>
+        </div>
+        <div class="row-fluid">
+          <div class="span6">
+            <h4>Doing</h4>
+
+            <div class="work-items">
+              <div class="work-item">
+                <div class="work-item-header">Feature #4</div>
+                <div>Analysis: 1</div>
+                <div>Design: 2</div>
+                <div>Code: 3</div>
+                <div>Test: 2</div>
+                <div>Release: 1</div>
+              </div>
+            </div>
+          </div>
+          <div class="span6">
+            <h4>Ready</h4>
+
+            <div class="work-items">
+              <div class="work-item">
+                <div class="work-item-header">Feature #4</div>
+                <div>Analysis: 1</div>
+                <div>Design: 2</div>
+                <div>Code: 3</div>
+                <div>Test: 2</div>
+                <div>Release: 1</div>
+              </div>
+              <div class="work-item">
+                <div class="work-item-header">Feature #4</div>
+                <div>Analysis: 1</div>
+                <div>Design: 2</div>
+                <div>Code: 3</div>
+                <div>Test: 2</div>
+                <div>Release: 1</div>
+              </div>
+              <div class="work-item">
+                <div class="work-item-header">Feature #4</div>
+                <div>Analysis: 1</div>
+                <div>Design: 2</div>
+                <div>Code: 3</div>
+                <div>Test: 2</div>
+                <div>Release: 1</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="span2">
+        <div class="stage-header">
+          <h1>Code</h1>
+        </div>
+        <div class="row-fluid">
+          <div class="span6">
+            <h4>Doing</h4>
+          </div>
+          <div class="span6">
+            <h4>Ready</h4>
+          </div>
+        </div>
+      </div>
+      <div class="span2">
+        <div class="stage-header">
+          <h1>Test</h1>
+        </div>
+        <div class="row-fluid">
+          <div class="span6">
+            <h4>Doing</h4>
+
+            <div class="row-fluid">
+              <div class="span12 work-item">
+                <div class="work-item-header">Feature #4</div>
+                <div>Analysis: 1</div>
+                <div>Design: 2</div>
+                <div>Code: 3</div>
+                <div>Test: 2</div>
+                <div>Release: 1</div>
+              </div>
+            </div>
+            <div class="row-fluid">
+              <div class="span12 work-item">
+                <div class="work-item-header">Feature #4</div>
+                <div>Analysis: 1</div>
+                <div>Design: 2</div>
+                <div>Code: 3</div>
+                <div>Test: 2</div>
+                <div>Release: 1</div>
+              </div>
+            </div>
+          </div>
+          <div class="span6">
+            <h4>Ready</h4>
+
+            <div class="row-fluid">
+              <div class="span12 work-item">
+                <div class="work-item-header">Feature #4</div>
+                <div>Analysis: 1</div>
+                <div>Design: 2</div>
+                <div>Code: 3</div>
+                <div>Test: 2</div>
+                <div>Release: 1</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="span2">
+        <div class="stage-header">
+          <h1>Release</h1>
+        </div>
+        <div class="row-fluid">
+          <div class="span6">
+            <h4>Doing</h4>
+          </div>
+          <div class="span6">
+            <h4>Ready</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

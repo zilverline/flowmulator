@@ -32,7 +32,7 @@ var WorkItem = Backbone.Model.extend({
 });
 
 var WorkItemView = Backbone.View.extend({
-  tagName:"li",
+  tagName:"div",
   className:"work-item",
 
   render:function () {

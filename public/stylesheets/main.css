@@ -1,55 +1,41 @@
-ul {
-  margin-left: 1em;
-  padding-left: 0;
+html, body {
+  height: 100%;
 }
 
-li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.container-fluid {
+  min-height: 100%;
 }
 
-h1 {
-  margin: 0;
+#control-panel {
+  margin: 25px 0 25px 0;
 }
 
-#backlog {
-  width: 250px;
-  float: left;
+.stage-header {
+  border-bottom: 1px solid black;
+  text-align: center;
 }
 
 #board {
-  float: left;
+  white-space: nowrap;
 }
 
-li.stage {
-  float: left;
-  border: 1px solid black;
-  min-height: 500px;
-  width: 500px;
+.work-item-header {
+  font-size: 12px;
+  font-weight: bold;
 }
 
-.header {
+.work-items {
+  margin: 0 2% 0 2%;
+}
+
+.work-item {
+  padding: 5px;
+  background-color: #eee;
+  font-size: 12px;
+  overflow: hidden;
+  margin-top: 6%;
+}
+
+h4 {
   text-align: center;
-  border-bottom: 2px solid black;
-}
-
-.column {
-  width: 250px;
-  float: left;
-}
-
-li.work-item {
-  width: 200px;
-  border: 1px solid black;
-  padding: 10px;
-  margin-top: 10px;
-}
-
-table.stage-efforts {
-  width: 100%;
-}
-
-table.stage-efforts td:first-child {
-  width: 75%;
 }

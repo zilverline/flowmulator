@@ -2,6 +2,9 @@
 	<head>
 		<title>Flowmulator</title>
 
+    <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" charset="utf-8">
+
 		<script type="text/javascript" src="javascripts/ext/underscore.js"></script>
 		<script type="text/javascript" src="javascripts/ext/jquery-1.7.1.js"></script>
 		<script type="text/javascript" src="javascripts/ext/jshashtable-2.1.js"></script>
@@ -20,74 +23,65 @@
 
 		<script type="text/javascript" src="javascripts/boot.js"></script>
 
-		<script id="work-item-template" type="text/template">
-			<h1><%= workItem.get('name') %></h1>
-      <table class="stage-efforts">
-        <tr>
-          <td>Analysis:</td>
-          <td><%= workItem.get('analysis') %></td>
-        </tr>
-        <tr>
-          <td>Design:</td>
-          <td><%= workItem.get('design') %></td>
-        </tr>
-        <tr>
-          <td>Code:</td>
-          <td><%= workItem.get('code') %></td>
-        </tr>
-        <tr>
-          <td>Test:</td>
-          <td><%= workItem.get('test') %></td>
-        </tr>
-        <tr>
-          <td>Release:</td>
-          <td><%= workItem.get('release') %></td>
-        </tr>
-        <% if(workItem.get('remainingEffortInStage') > 0) { %>
-        <tr>
-          <td>Remaining effort:</td>
-          <td><%= workItem.get('remainingEffortInStage') %></td>
-        </tr>
-        <% } %>
-      </table>
-		</script>
-
-		<script id="stage-template" type="text/template">
-      <button class="run-stage">Run stage</button>
-			<div class="header">
-				<h1><%= stage.get('name') %></h1>
-				<h3>Velocity: <%= stage.get('velocity') %></h3>
-			</div>
-      <div class="column">
-        <div class="header">
-          <h2>In Progress</h2>
-        </div>
-        <ul class="work-items">
-        <% _(stage.get('inProgressWork')).each(function(workItem){ %>
-          <li class="work-item"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></li>
-        <% }) %>
-        </ul>
+    <script id="control-panel-template" type="text/template">
+      <div class="span12">
+        <button id="run-one-day" class="btn">Run one day</button>
+        <button id="run-one-day-reversed" class="btn">Run one day reversed</button>
       </div>
-      <div class="column">
-        <div class="header">
-          <h2>Ready</h2>
-        </div>
-        <ul class="work-items">
-          <% _(stage.get('readyWork')).each(function(workItem){ %>
-          <li class="work-item"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></li>
-          <% }) %>
-        </ul>
+    </script>
+
+    <script id="backlog-template" type="text/template">
+      <div class="stage-header">
+        <h1>Backlog</h1>
       </div>
-		</script>
+      <div class="row-fluid">
+        <div class="span6">
+          <h4>All work</h4>
+          <div class="work-items">
+            <% _(backlog.get('readyWork')).each(function(workItem){ %>
+            <div class="work-item"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </script>
 
-		<script id="control-panel-template" type="text/template">
-			<button id="run-one-day">Run one day</button>
-      <button id="run-one-day-reversed">Run one day reversed</button>
-		</script>
+    <script id="stage-template" type="text/template">
+      <div class="stage-header">
+        <h3><%= stage.get('name') %> (<%= stage.get('velocity') %>)</h3>
+      </div>
 
-		<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" charset="utf-8">
+      <div class="row-fluid">
+        <div class="span6">
+          <h4>Doing</h4>
+          <div class="work-items">
+            <% _(stage.get('inProgressWork')).each(function(workItem){ %>
+            <div class="work-item"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></div>
+            <% }) %>
+          </div>
+        </div>
+        <div class="span6">
+          <h4>Ready</h4>
+          <div class="work-items">
+            <% _(stage.get('readyWork')).each(function(workItem){ %>
+            <div class="work-item"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script id="work-item-template" type="text/template">
+      <div class="work-item-header"><%= workItem.get('name') %></div>
+      <div>Analysis: <%= workItem.get('analysis') %></div>
+      <div>Design: <%= workItem.get('design') %></div>
+      <div>Code: <%= workItem.get('code') %></div>
+      <div>Test: <%= workItem.get('test') %></div>
+      <div>Release: <%= workItem.get('release') %></div>
+      <div>Remaining: <%= workItem.get('remainingEffortInStage') %></div>
+		</script>
 	</head>
 	<body>
-		<div id="container"></div>
+		<div id="container" class="container-fluid"></div>
 	</body>
 </html>

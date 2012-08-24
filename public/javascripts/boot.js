@@ -3,7 +3,7 @@ $(function () {
     var workList = [];
 
     for (var i = 0; i < 10; i++) {
-      workList[i] = new WorkItem({name:"Feature #"+i});
+      workList[i] = new WorkItem({name:"Feature #" + (i + 1)});
     }
 
     return workList;
@@ -20,12 +20,12 @@ $(function () {
 
   var startup = function () {
     var backlog = new ReadyWorkProvider({readyWork:createWorkItems()});
-    var board = new Board({stages:createStages(backlog)});
+    var board = new Board({backlog: backlog, stages:createStages(backlog)});
     var controlPanel = new ControlPanel();
-    var flowmulator = new Flowmulator({backlog:backlog, board:board, controlPanel:controlPanel});
+    var flowmulator = new Flowmulator({board:board, controlPanel:controlPanel});
     new FlowmulatorView({model:flowmulator}).render();
   };
 
   startup();
-  
+
 });

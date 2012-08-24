@@ -18,7 +18,7 @@ var ReadyWorkProvider = Backbone.Model.extend({
 });
 
 var ReadyWorkProviderView = Backbone.View.extend({
-  tagName:"ul",
+  tagName:"div",
 
   initialize:function () {
     _.bindAll(this, "render");

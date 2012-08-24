@@ -8,6 +8,9 @@ var ControlPanel = Backbone.Model.extend({
 });
 
 var ControlPanelView = Backbone.View.extend({
+  id: "control-panel",
+  className: "row-fluid",
+
   events: {
     "click #run-one-day": "runOneDay",
     "click #run-one-day-reversed": "runOneDayReversed"

@@ -1,5 +1,6 @@
 var Board = Backbone.Model.extend({
   defaults: {
+    backlog: null,
     stages: []
   },
 
@@ -15,7 +16,6 @@ var Board = Backbone.Model.extend({
     
     _(reversedStages).forEach(function (stage) {
       stage.runStage();
-      console.log("Order of Stages: ", stage.get("name")); 
     });
      
   }
@@ -23,9 +23,12 @@ var Board = Backbone.Model.extend({
 
 var BoardView = Backbone.View.extend({
   id: "board",
-  tagName: "ul",
+  tagName: "div",
+  className: "row-fluid",
 
   render: function() {
+    this.$el.append(new BacklogView({model: this.model.get("backlog")}).render().el);
+
     var self = this;
     _(this.model.get("stages")).forEach(function (stage) {
       self.$el.append(new StageView({model: stage}).render().el);

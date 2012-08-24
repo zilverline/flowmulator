@@ -84,8 +84,8 @@ var Stage = ReadyWorkProvider.extend({
 });
 
 var StageView = Backbone.View.extend({
-  tagName:"li",
-  className:"stage",
+  tagName:"div",
+  className:"span2",
 
   events:{
     "click .run-stage":"runStage"
