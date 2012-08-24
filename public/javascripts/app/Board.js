@@ -11,16 +11,11 @@ var Board = Backbone.Model.extend({
   },
 
   runOneDayReversed: function() {
-    var once = true;
-    var reversedStages = this.get("stages");
-    if(once){
-      console.log("Reversed!");
-      reversedStages.reverse()
-      once = false;
-    }
-
+    var reversedStages = this.get("stages").slice().reverse();
+    
     _(reversedStages).forEach(function (stage) {
-      stage.runStage(); 
+      stage.runStage();
+      console.log("Order of Stages: ", stage.get("name")); 
     });
      
   }

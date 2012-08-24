@@ -1,7 +1,7 @@
 var createWorkItems = function () {
   var workList = [];
 
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 100; i++) {
    workList[i] = new WorkItem({name:"Feature #"+i});  
   }
 
