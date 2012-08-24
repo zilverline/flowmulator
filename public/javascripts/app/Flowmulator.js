@@ -7,7 +7,9 @@ var Flowmulator = Backbone.Model.extend({
   initialize: function() {
     var board = this.get("board");
     _.bindAll(board, "runOneDay");
+    _.bindAll(board, "runOneDayReversed");
     this.get("controlPanel").bind("runOneDay", board.runOneDay);
+    this.get("controlPanel").bind("runOneDayReversed", board.runOneDayReversed);
   }
 });
 

@@ -5,8 +5,19 @@ var Board = Backbone.Model.extend({
 
   runOneDay: function() {
     _(this.get("stages")).forEach(function (stage) {
-      stage.runStage();
-    }); 
+      stage.runStage(); 
+    });
+
+  },
+
+  runOneDayReversed: function() {
+    console.log("Reversed!");
+    var reversedStages = this.get("stages").reverse();
+    
+    _(reversedStages).forEach(function (stage) {
+      stage.runStage(); 
+    });
+     
   }
 });
 

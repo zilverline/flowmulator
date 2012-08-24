@@ -1,16 +1,11 @@
 var createWorkItems = function () {
-  return [
-    new WorkItem({name:"Feature #1", analysis:2, design:2, code:4, test:2, release:1}),
-    new WorkItem({name:"Feature #2", analysis:2, design:2, code:4, test:3, release:1}),
-    new WorkItem({name:"Feature #3", analysis:3, design:2, code:6, test:3, release:2}),
-    new WorkItem({name:"Feature #4", analysis:3, design:2, code:5, test:2, release:2}),
-    new WorkItem({name:"Feature #5", analysis:3, design:2, code:6, test:4, release:2}),
-    new WorkItem({name:"Feature #6", analysis:3, design:1, code:4, test:2, release:1}),
-    new WorkItem({name:"Feature #7", analysis:2, design:2, code:4, test:2, release:2}),
-    new WorkItem({name:"Feature #8", analysis:3, design:1, code:5, test:2, release:2}),
-    new WorkItem({name:"Feature #9", analysis:2, design:0, code:3, test:2, release:1}),  
-    new WorkItem({name:"Feature #10", analysis:2, design:1, code:4, test:2, release:2})  
-  ];
+  var workList = [];
+
+  for (var i = 0; i < 10; i++) {
+   workList[i] = new WorkItem({name:"Feature #"+i});  
+  }
+
+  return workList;
 };
 
 var createStages = function (backlog) {
