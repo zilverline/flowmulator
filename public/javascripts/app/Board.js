@@ -11,9 +11,14 @@ var Board = Backbone.Model.extend({
   },
 
   runOneDayReversed: function() {
-    console.log("Reversed!");
-    var reversedStages = this.get("stages").reverse();
-    
+    var once = true;
+    var reversedStages = this.get("stages");
+    if(once){
+      console.log("Reversed!");
+      reversedStages.reverse()
+      once = false;
+    }
+
     _(reversedStages).forEach(function (stage) {
       stage.runStage(); 
     });
