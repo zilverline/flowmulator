@@ -41,7 +41,8 @@
           <h4>All work</h4>
           <div class="work-items">
             <% _(backlog.get('readyWork')).each(function(workItem){ %>
-            <div class="work-item"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></div>
+            <% new WorkItemView({model: workItem}).render() %>
+            <div class="work-item <%= workItem.get('color') %> rotate-<%= workItem.get('rotation') %>"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></div>
             <% }) %>
           </div>
         </div>
@@ -60,7 +61,7 @@
           <h4>Doing</h4>
           <div class="work-items">
             <% _(stage.get('inProgressWork')).each(function(workItem){ %>
-            <div class="work-item"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></div>
+            <div class="work-item <%= workItem.get('color') %> rotate-<%= workItem.get('rotation') %>"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></div>
             <% }) %>
           </div>
         </div>
@@ -68,7 +69,7 @@
           <h4>Ready</h4>
           <div class="work-items">
             <% _(stage.get('readyWork')).each(function(workItem){ %>
-            <div class="work-item"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></div>
+            <div class="work-item <%= workItem.get('color') %> rotate-<%= workItem.get('rotation') %>"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></div>
             <% }) %>
           </div>
         </div>

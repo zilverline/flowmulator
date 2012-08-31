@@ -1,6 +1,11 @@
+var COLORS = ["yellow", "red", "blue", "green"];
+var ROTATIONS = [-10, -5, 0, 5, 10];
+
 var WorkItem = Backbone.Model.extend({
   defaults:{
     name:"",
+    color: "yellow",
+    rotation: 0,
     analysis:0,
     design:0,
     code:0,
@@ -27,7 +32,20 @@ var WorkItem = Backbone.Model.extend({
     }
     if(!args["release"]){
       this.set("release", Math.round(Math.random() + size));
-    }  
+    }
+
+    this._assignRandomColor();
+    this._assignRandomRotation();
+  },
+
+  _assignRandomColor: function() {
+    var randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+    this.set("color", randomColor);
+  },
+
+  _assignRandomRotation: function() {
+    var randomRotation = ROTATIONS[Math.floor(Math.random() * ROTATIONS.length)];
+    this.set("rotation", randomRotation);
   },
 
   performWork: function() {
