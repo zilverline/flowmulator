@@ -4,7 +4,8 @@ var Stage = ReadyWorkProvider.extend({
     velocity:0,
     remainingVelocity:0,
     nextStage:null,
-    readyWorkProvider:null
+    readyWorkProvider:null,
+    wipLimit:1
   },
 
   initialize:function () {
@@ -17,59 +18,53 @@ var Stage = ReadyWorkProvider.extend({
 
   runStage:function () {
     this._updateVelocity();
-
-    while(this._canPerformWork()) {
-      if (this._emptyInProgressWork()) {
-        if(!this._canPullWork()) {
-          break;
-        }
-        this._pullWorkFromProvider();
-      }
-      this._performWork();
-    }
+    this._fillInProgressWorkUpToWipLimit();
+    this._distributeVelocityAmongstInProgressWork();
   },
 
-  _canPerformWork: function() {
-    return this.get("remainingVelocity") > 0;
-  },
-
-  _canPullWork: function() {
-    return this.get("readyWorkProvider").hasMoreReadyWork();
-  },
-
-  _emptyInProgressWork:function () {
-    return this.get("inProgressWork").length == 0;
-  },
-
-  _pullWorkFromProvider:function () {
-    var work = this.get("readyWorkProvider").getNextReadyWork();
-    if (work !== undefined) {
-      work.set("remainingEffortInStage", work.get(this.get("name").toLowerCase()));
-      var inProgressWork = this.get("inProgressWork");
-      inProgressWork.push(work);
-      this.trigger("change:inProgressWork");
-    } else {
-      throw new Error("no work remaining");
-    }
-  },
-
-  _performWork: function() {
-    var remainingVelocity = this.get("remainingVelocity");
-
-    var work = this.get("inProgressWork").shift();
-    var effort = work.get("remainingEffortInStage");
-    var remainingEffort = effort - remainingVelocity;
-    if(remainingEffort <= 0) {
-      work.set("remainingEffortInStage", 0);
-      this.get("readyWork").push(work);
-      this.trigger("change:readyWork");
-    } else {
+  _fillInProgressWorkUpToWipLimit:function () {
+    var readyWorkProvider = this.get("readyWorkProvider");
+    var inProgressWork = this.get("inProgressWork");
+    while (readyWorkProvider.hasMoreReadyWork() && inProgressWork.length < this.get("wipLimit")) {
+      var work = readyWorkProvider.getNextReadyWork();
+      var remainingEffort = work.get(this.get("name").toLowerCase());
       work.set("remainingEffortInStage", remainingEffort);
-      this.get("inProgressWork").unshift(work);
-      this.trigger("change:inProgressWork");
+      if (remainingEffort > 0) {
+        inProgressWork.push(work);
+      } else {
+        this.get("readyWork").push(work);
+      }
+    }
+    this.trigger("change:inProgressWork");
+    this.trigger("change:readyWork");
+  },
+
+  _distributeVelocityAmongstInProgressWork:function () {
+    var velocity = this.get("velocity");
+    var inProgressWork = this.get("inProgressWork");
+    var cursor = 0;
+
+    for (var i = 0; i < velocity; i++) {
+      var work = inProgressWork[cursor];
+      if (work !== undefined) {
+        work.performWork();
+
+        if (work.get("remainingEffortInStage") == 0) {
+          inProgressWork.splice(cursor, 1);
+          this.get("readyWork").push(work);
+          this._fillInProgressWorkUpToWipLimit();
+        } else {
+          cursor++;
+        }
+
+        if (cursor >= inProgressWork.length) {
+          cursor = 0;
+        }
+      }
     }
 
-    this.set("remainingVelocity", Math.max(remainingVelocity - effort, 0));
+    this.trigger("change:inProgressWork");
+    this.trigger("change:readyWork");
   },
 
   _updateVelocity:function () {
@@ -78,9 +73,10 @@ var Stage = ReadyWorkProvider.extend({
     this.set("remainingVelocity", velocity);
   },
 
-  _randomVelocity: function() {
+  _randomVelocity:function () {
     return Math.floor(Math.random() * 6) + 1;
   }
+
 });
 
 var StageView = Backbone.View.extend({

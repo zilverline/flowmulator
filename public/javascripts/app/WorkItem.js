@@ -28,6 +28,10 @@ var WorkItem = Backbone.Model.extend({
     if(!args["release"]){
       this.set("release", Math.round(Math.random() + size));
     }  
+  },
+
+  performWork: function() {
+    this.set("remainingEffortInStage", this.get("remainingEffortInStage") - 1);
   }
 });
 

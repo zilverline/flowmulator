@@ -33,6 +33,7 @@
     <script id="backlog-template" type="text/template">
       <div class="stage-header">
         <h1>Backlog</h1>
+        <h5>&nbsp;</h5>
       </div>
       <div class="row-fluid">
         <div class="span6">
@@ -49,6 +50,7 @@
     <script id="stage-template" type="text/template">
       <div class="stage-header">
         <h3><%= stage.get('name') %> (<%= stage.get('velocity') %>)</h3>
+        <h5>WIP limit: <%= stage.get('wipLimit') %></h5>
       </div>
 
       <div class="row-fluid">

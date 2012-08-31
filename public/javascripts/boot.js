@@ -10,11 +10,11 @@ $(function () {
   };
 
   var createStages = function (backlog) {
-    var analysis = new Stage({name:"Analysis", readyWorkProvider:backlog});
-    var design = new Stage({name:"Design", readyWorkProvider:analysis});
-    var code = new Stage({name:"Code", readyWorkProvider:design});
-    var test = new Stage({name:"Test", readyWorkProvider:code});
-    var release = new Stage({name:"Release", readyWorkProvider:test});
+    var analysis = new Stage({name:"Analysis", readyWorkProvider:backlog, wipLimit: 10});
+    var design = new Stage({name:"Design", readyWorkProvider:analysis, wipLimit: 10});
+    var code = new Stage({name:"Code", readyWorkProvider:design, wipLimit: 10});
+    var test = new Stage({name:"Test", readyWorkProvider:code, wipLimit: 10});
+    var release = new Stage({name:"Release", readyWorkProvider:test, wipLimit: 10});
     return [analysis, design, code, test, release];
   };
 
