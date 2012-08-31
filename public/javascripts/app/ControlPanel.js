@@ -1,9 +1,9 @@
 var ControlPanel = Backbone.Model.extend({
+  runTenDays: function() {
+    this.trigger("runTenDays");
+  },
   runOneDay: function() {
     this.trigger("runOneDay");
-  },
-  runOneDayReversed: function() {
-    this.trigger("runOneDayReversed");
   }
 });
 
@@ -12,18 +12,18 @@ var ControlPanelView = Backbone.View.extend({
   className: "row-fluid",
 
   events: {
-    "click #run-one-day": "runOneDay",
-    "click #run-one-day-reversed": "runOneDayReversed"
+    "click #run-ten-days": "runTenDays",
+    "click #run-one-day": "runOneDay"
   },
   render: function() {
     var template = _.template($("#control-panel-template").html(), {});
     this.$el.html(template);
     return this;
   },
+  runTenDays: function() {
+    this.model.runTenDays();
+  },
   runOneDay: function() {
     this.model.runOneDay();
-  },
-  runOneDayReversed: function() {
-    this.model.runOneDayReversed();
   }
 });
