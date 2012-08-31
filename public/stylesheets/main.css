@@ -39,3 +39,13 @@ html, body {
 h4 {
   text-align: center;
 }
+
+label {
+  display: inline;
+}
+
+.wip-limit {
+  width: 35px;
+  line-height: 15px;
+  height: 15px;
+}

@@ -84,11 +84,12 @@ var StageView = Backbone.View.extend({
   className:"span2",
 
   events:{
-    "click .run-stage":"runStage"
+    "click .run-stage":"runStage",
+    "change .wip-limit":"updateWipLimit"
   },
 
   initialize:function () {
-    _.bindAll(this, "render");
+    _.bindAll(this, "render", "updateWipLimit");
     this.model.bind("change:velocity", this.render);
     this.model.bind("change:inProgressWork", this.render);
     this.model.bind("change:readyWork", this.render);
@@ -102,5 +103,9 @@ var StageView = Backbone.View.extend({
 
   runStage:function () {
     this.model.runStage();
+  },
+
+  updateWipLimit: function(event) {
+    this.model.set("wipLimit", event.target.value);
   }
 });
