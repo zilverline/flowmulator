@@ -7,16 +7,18 @@ html, body {
 }
 
 #control-panel {
-  margin: 25px 0 25px 0;
+  margin: 20px 0 20px 0;
 }
 
 .stage-header {
   border-bottom: 1px solid black;
   text-align: center;
+  height: 90px;
 }
 
 #board {
   white-space: nowrap;
+  margin-bottom: 20px;
 }
 
 .work-item-header {
