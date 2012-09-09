@@ -1,8 +1,9 @@
 $(function () {
   var createWorkItems = function () {
+    var NUMBER_OF_WORKITEMS = 30;
     var workList = [];
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < NUMBER_OF_WORKITEMS; i++) {
       workList[i] = new WorkItem({name:"Feature #" + (i + 1)});
     }
 
