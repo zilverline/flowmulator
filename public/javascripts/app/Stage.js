@@ -19,6 +19,7 @@ var Stage = ReadyWorkProvider.extend({
   runStage:function () {
     this._updateVelocity();
     this._fillInProgressWorkUpToWipLimit();
+    this._updateTime();
     this._distributeVelocityAmongstInProgressWork();
   },
 
@@ -65,6 +66,19 @@ var Stage = ReadyWorkProvider.extend({
 
     this.trigger("change:inProgressWork");
     this.trigger("change:readyWork");
+  },
+
+  _updateTime:function () {
+    this._raiseTime("inProgressWork", "workTime");
+    this._raiseTime("readyWork", "waitTime");
+  },
+
+  _raiseTime:function (list, time) {
+    var workItems = this.get(list);
+     for (var i = 0; i < workItems.length; i++) {
+       var oldtime = workItems[i].get(time);
+       workItems[i].set(time, oldtime + 1);
+     };
   },
 
   _updateVelocity:function () {

@@ -11,11 +11,12 @@ $(function () {
   };
 
   var createStages = function (backlog) {
-    var analysis = new Stage({name:"Analysis", readyWorkProvider:backlog, wipLimit: 10});
-    var design = new Stage({name:"Design", readyWorkProvider:analysis, wipLimit: 10});
-    var code = new Stage({name:"Code", readyWorkProvider:design, wipLimit: 10});
-    var test = new Stage({name:"Test", readyWorkProvider:code, wipLimit: 10});
-    var release = new Stage({name:"Release", readyWorkProvider:test, wipLimit: 10});
+    var DEFAULT_WIP_LIMIT = 6;
+    var analysis = new Stage({name:"Analysis", readyWorkProvider:backlog, wipLimit: DEFAULT_WIP_LIMIT});
+    var design = new Stage({name:"Design", readyWorkProvider:analysis, wipLimit: DEFAULT_WIP_LIMIT});
+    var code = new Stage({name:"Code", readyWorkProvider:design, wipLimit: DEFAULT_WIP_LIMIT});
+    var test = new Stage({name:"Test", readyWorkProvider:code, wipLimit: DEFAULT_WIP_LIMIT});
+    var release = new Stage({name:"Release", readyWorkProvider:test, wipLimit: DEFAULT_WIP_LIMIT});
     return [analysis, design, code, test, release];
   };
 
