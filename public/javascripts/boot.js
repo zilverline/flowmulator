@@ -11,7 +11,7 @@ $(function () {
   };
 
   var createStages = function (backlog) {
-    var DEFAULT_WIP_LIMIT = 6;
+    var DEFAULT_WIP_LIMIT = 10;
     var analysis = new Stage({name:"Analysis", readyWorkProvider:backlog, wipLimit: DEFAULT_WIP_LIMIT});
     var design = new Stage({name:"Design", readyWorkProvider:analysis, wipLimit: DEFAULT_WIP_LIMIT});
     var code = new Stage({name:"Code", readyWorkProvider:design, wipLimit: DEFAULT_WIP_LIMIT});
