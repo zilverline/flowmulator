@@ -11,3 +11,7 @@ A Kanban flow simulator based on: http://availagility.co.uk/2008/12/22/the-kanba
 `rake jasmine` and then point your browser to http://localhost:8888
 
 `rspec spec` to run capybara tests
+
+Copyright
+---------
+Copyright (c) 2012 Zilverline / Bob Forma, Mark Suurmond.
