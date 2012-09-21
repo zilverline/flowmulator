@@ -82,13 +82,7 @@ var Stage = ReadyWorkProvider.extend({
       if(workItems[i].get("remainingTotalEffort")>0){
        var oldtime = workItems[i].get("waitTime");
        workItems[i].set("waitTime", oldtime + 1);
-      } else {
-        //This item is totally done
-        console.log(workItems[i].get("name"), " is DONE");
-        console.log("Work time: ", workItems[i].get("workTime"));
-        console.log("Wait time: ", workItems[i].get("waitTime"));
-         
-      }
+      } 
     };
   },
 

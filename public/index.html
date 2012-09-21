@@ -78,13 +78,20 @@
 
     <script id="work-item-template" type="text/template">
       <div class="work-item-header"><%= workItem.get('name') %></div>
-      <div>Analysis: <%= workItem.get('analysis') %></div>
-      <div>Design: <%= workItem.get('design') %></div>
-      <div>Code: <%= workItem.get('code') %></div>
-      <div>Test: <%= workItem.get('test') %></div>
-      <div>Release: <%= workItem.get('release') %></div>
-      <div>Remaining: <%= workItem.get('remainingEffortInStage') %></div>
+      <% if(workItem.get('remainingTotalEffort') > 0) {%>
+        <div>Analysis: <%= workItem.get('analysis') %></div>
+        <div>Design: <%= workItem.get('design') %></div>
+        <div>Code: <%= workItem.get('code') %></div>
+        <div>Test: <%= workItem.get('test') %></div>
+        <div>Release: <%= workItem.get('release') %></div>
+        <div>Remaining: <%= workItem.get('remainingEffortInStage') %></div>
+      <% } else {%>
+        <div>Work Time: <%= workItem.get('workTime') %></div>
+        <div>Wait Time: <%= workItem.get('waitTime') %></div>
+        <div>Total Time: <%= workItem.get('workTime') + workItem.get('waitTime') %></div>
+      <% }%>
 		</script>
+
 	</head>
 	<body>
 		<div id="container" class="container-fluid"></div>
