@@ -69,16 +69,27 @@ var Stage = ReadyWorkProvider.extend({
   },
 
   _updateTime:function () {
-    this._raiseTime("inProgressWork", "workTime");
-    this._raiseTime("readyWork", "waitTime");
-  },
+    
+    var workItems = this.get("inProgressWork");
+    for (var i = 0; i < workItems.length; i++) {
+     var oldtime = workItems[i].get("workTime");
+     workItems[i].set("workTime", oldtime + 1);
+    };
 
-  _raiseTime:function (list, time) {
-    var workItems = this.get(list);
-     for (var i = 0; i < workItems.length; i++) {
-       var oldtime = workItems[i].get(time);
-       workItems[i].set(time, oldtime + 1);
-     };
+    var workItems = this.get("readyWork");
+    for (var i = 0; i < workItems.length; i++) {
+
+      if(workItems[i].get("remainingTotalEffort")>0){
+       var oldtime = workItems[i].get("waitTime");
+       workItems[i].set("waitTime", oldtime + 1);
+      } else {
+        //This item is totally done
+        console.log(workItems[i].get("name"), " is DONE");
+        console.log("Work time: ", workItems[i].get("workTime"));
+        console.log("Wait time: ", workItems[i].get("waitTime"));
+         
+      }
+    };
   },
 
   _updateVelocity:function () {

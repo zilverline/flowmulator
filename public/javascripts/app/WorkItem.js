@@ -12,6 +12,7 @@ var WorkItem = Backbone.Model.extend({
     test:0,
     release:0,
     remainingEffortInStage:0,
+    remainingTotalEffort:0,
     workTime:0, //Time this item spends being worked upon.
     waitTime:0 //Time this item spends waiting to be worked upon.
   },
@@ -19,28 +20,39 @@ var WorkItem = Backbone.Model.extend({
   initialize:function(args) {
     //Get a random size of this workItem 0, 1, 2
     var size = Math.floor(Math.random() * 3);
+    var totalSize = 0;
     
     if(!args["analysis"]) {
-      this.set("analysis", Math.round(Math.random() + size) + 1);
+      var analysisSize = Math.round(Math.random() + size) + 1;
+      this.set("analysis", analysisSize);
+      totalSize = totalSize + analysisSize;
     }
     if(!args["design"]){
-      this.set("design", Math.round(Math.random() + size));
+      var designSize = Math.round(Math.random() + size);
+      this.set("design", designSize);
+      totalSize = totalSize + designSize;
     }
     if(!args["code"]){
-      this.set("code", Math.round(Math.random() + size) + 3);
+      var codeSize = Math.round(Math.random() + size) + 3;
+      this.set("code", codeSize);
+      totalSize = totalSize + codeSize;
     }
     if(!args["test"]){
-      this.set("test", Math.round(Math.random() + size) + 2);
+      var testSize = Math.round(Math.random() + size) + 2;
+      this.set("test", testSize);
+      totalSize = totalSize + testSize;
     }
     if(!args["release"]){
-      this.set("release", Math.round(Math.random() + size));
+      var releaseSize = Math.round(Math.random() + size);
+      this.set("release", releaseSize);
+      totalSize = totalSize + releaseSize;
     }
 
     this._assignRandomColor();
     this._assignRandomRotation();
-
     //Determine total work effort for this item
-    
+    this.set("remainingTotalEffort",totalSize);
+
   },
 
   _assignRandomColor: function() {
@@ -55,7 +67,11 @@ var WorkItem = Backbone.Model.extend({
 
   performWork: function() {
     this.set("remainingEffortInStage", this.get("remainingEffortInStage") - 1);
+    this.set("remainingTotalEffort", this.get("remainingTotalEffort") - 1);
   }
+
+  
+    
 });
 
 var WorkItemView = Backbone.View.extend({
