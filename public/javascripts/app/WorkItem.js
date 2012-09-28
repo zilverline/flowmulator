@@ -11,6 +11,7 @@ var WorkItem = Backbone.Model.extend({
     code:0,
     test:0,
     release:0,
+    totalEffort:0,
     remainingEffortInStage:0,
     remainingTotalEffort:0,
     workTime:0, //Time this item spends being worked upon.
@@ -52,7 +53,7 @@ var WorkItem = Backbone.Model.extend({
     this._assignRandomRotation();
     //Determine total work effort for this item
     this.set("remainingTotalEffort",totalSize);
-
+    this.set("totalEffort",totalSize);
   },
 
   _assignRandomColor: function() {
@@ -68,6 +69,13 @@ var WorkItem = Backbone.Model.extend({
   performWork: function() {
     this.set("remainingEffortInStage", this.get("remainingEffortInStage") - 1);
     this.set("remainingTotalEffort", this.get("remainingTotalEffort") - 1);
+  },
+
+  reset: function(){
+    this.set("remainingEffortInStage", 0);
+    this.set("remainingTotalEffort", this.get("totalEffort"));
+    this.set("workTime", 0);
+    this.set("waitTime", 0);
   }
 
   

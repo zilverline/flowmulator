@@ -16,8 +16,7 @@ var Board = Backbone.Model.extend({
     _(reversedStages).forEach(function (stage) {
       stage.runStage();
     });
-
-  }
+  },
 });
 
 var BoardView = Backbone.View.extend({

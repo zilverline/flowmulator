@@ -38,16 +38,16 @@ describe("Stage", function () {
         expect(someFeature.get("remainingEffortInStage")).toEqual(0);
       });
 
-      it("should continue moving work from in progress to ready until velocity is consumed", function () {
+      it("should not continue moving work from in progress to ready because WIP Limit is reached", function () {
         readyWorkProvider.set("readyWork", [anotherFeature]);
         spyOn(stage, "_randomVelocity").andReturn(5);
 
         stage.runStage();
 
-        expect(stage.get("inProgressWork").length).toEqual(1);
+        expect(stage.get("inProgressWork").length).toEqual(0);
         expect(stage.get("readyWork").length).toEqual(1);
         expect(someFeature.get("remainingEffortInStage")).toEqual(0);
-        expect(anotherFeature.get("remainingEffortInStage")).toEqual(3);
+        expect(anotherFeature.get("remainingEffortInStage")).toEqual(5);
       });
 
     });
@@ -134,7 +134,7 @@ describe("Stage", function () {
         expect(anotherFeature.get("remainingEffortInStage")).toEqual(4);
       });
 
-      it("should move work to ready while distributing velocity amongst in progress work", function () {
+      it("should not move work to ready because WIP Limit is reached", function () {
         spyOn(stage, "_randomVelocity").andReturn(6);
 
         stage.runStage();
@@ -142,7 +142,7 @@ describe("Stage", function () {
         expect(someFeature.get("remainingEffortInStage")).toEqual(0);
         expect(anotherFeature.get("remainingEffortInStage")).toEqual(2);
 
-        expect(stage.get("inProgressWork")).toEqual([anotherFeature, lameFeature]);
+        expect(stage.get("inProgressWork")).toEqual([anotherFeature]);
         expect(stage.get("readyWork")).toEqual([someFeature]);
       });
 

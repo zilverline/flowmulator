@@ -4,6 +4,13 @@ var ControlPanel = Backbone.Model.extend({
   },
   runOneDay: function() {
     this.trigger("runOneDay");
+  },
+  resetBoard: function() {
+    var workItems = _.map(window.workItems, function(workItem) {
+      workItem.reset();
+      return workItem;
+    });
+    window.startup(workItems);
   }
 });
 
@@ -13,7 +20,8 @@ var ControlPanelView = Backbone.View.extend({
 
   events: {
     "click #run-ten-days": "runTenDays",
-    "click #run-one-day": "runOneDay"
+    "click #run-one-day": "runOneDay",
+    "click #restart": "resetBoard"
   },
   render: function() {
     var template = _.template($("#control-panel-template").html(), {});
@@ -25,5 +33,8 @@ var ControlPanelView = Backbone.View.extend({
   },
   runOneDay: function() {
     this.model.runOneDay();
+  },
+  resetBoard: function() {
+    this.model.resetBoard();
   }
 });

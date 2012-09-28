@@ -5,7 +5,8 @@ var Stage = ReadyWorkProvider.extend({
     remainingVelocity:0,
     nextStage:null,
     readyWorkProvider:null,
-    wipLimit:1
+    wipLimit:1,
+    endStage:false
   },
 
   initialize:function () {
@@ -26,7 +27,8 @@ var Stage = ReadyWorkProvider.extend({
   _fillInProgressWorkUpToWipLimit:function () {
     var readyWorkProvider = this.get("readyWorkProvider");
     var inProgressWork = this.get("inProgressWork");
-    while (readyWorkProvider.hasMoreReadyWork() && inProgressWork.length < this.get("wipLimit")) {
+    
+    while (readyWorkProvider.hasMoreReadyWork() && this.getTotalWorkInStage() < this.get("wipLimit")) {
       var work = readyWorkProvider.getNextReadyWork();
       var remainingEffort = work.get(this.get("name").toLowerCase());
       work.set("remainingEffortInStage", remainingEffort);
@@ -38,6 +40,19 @@ var Stage = ReadyWorkProvider.extend({
     }
     this.trigger("change:inProgressWork");
     this.trigger("change:readyWork");
+  },
+
+  getTotalWorkInStage: function(){
+    var inProgressWork = this.get("inProgressWork");
+    var readyWork = this.get("readyWork");
+
+    var numberOfWorkItems = inProgressWork.length;
+
+    if(!this.get("endStage")){
+      numberOfWorkItems += readyWork.length;  
+    } 
+    
+    return numberOfWorkItems;
   },
 
   _distributeVelocityAmongstInProgressWork:function () {
