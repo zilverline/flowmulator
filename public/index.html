@@ -87,9 +87,9 @@
         <div>Release: <%= workItem.get('release') %></div>
         <div>Remaining: <%= workItem.get('remainingEffortInStage') %></div>
       <% } else {%>
-        <div>Work Time: <%= workItem.get('workTime') %></div>
-        <div>Wait Time: <%= workItem.get('waitTime') %></div>
-        <div>Total Time: <%= workItem.get('workTime') + workItem.get('waitTime') %></div>
+        <div>Workdays: <%= workItem.get('workTime') %></div>
+        <div>Waitdays: <%= workItem.get('waitTime') %></div>
+        <div>Total: <%= workItem.get('workTime') + workItem.get('waitTime') %></div>
       <% }%>
 		</script>
 
