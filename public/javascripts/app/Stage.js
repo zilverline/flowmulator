@@ -108,7 +108,8 @@ var Stage = ReadyWorkProvider.extend({
   },
 
   _randomVelocity:function () {
-    return Math.floor(Math.random() * 6) + 1;
+    
+    return (Math.floor(Math.random() * 3) + 2) * 2;
   }
 
 });
@@ -132,6 +133,17 @@ var StageView = Backbone.View.extend({
   render:function () {
     var template = _.template($("#stage-template").html(), {stage:this.model});
     this.$el.html(template);
+
+    var doingColumn = this.$el.find(".doing");
+    _(this.model.get("inProgressWork")).each(function (workItem) {
+      doingColumn.append(new WorkItemView({model:workItem}).render().el);
+    });
+
+    var readyColumn = this.$el.find(".ready");
+    _(this.model.get("readyWork")).each(function (workItem) {
+      readyColumn.append(new WorkItemView({model:workItem}).render().el);
+    });
+    
     return this;
   },
 

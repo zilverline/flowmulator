@@ -124,3 +124,7 @@ label {
   line-height: 15px;
   height: 15px;
 }
+
+.hide {
+  display: none;
+}

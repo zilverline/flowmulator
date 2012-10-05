@@ -40,12 +40,7 @@
       <div class="row-fluid">
         <div class="span6">
           <h4>All work</h4>
-          <div class="work-items">
-            <% _(backlog.get('readyWork')).each(function(workItem){ %>
-            <% new WorkItemView({model: workItem}).render() %>
-            <div class="work-item <%= workItem.get('color') %> rotate-<%= workItem.get('rotation') %>"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></div>
-            <% }) %>
-          </div>
+          <div class="backlog work-items"/>
         </div>
       </div>
     </script>
@@ -60,37 +55,30 @@
       <div class="row-fluid">
         <div class="span6">
           <h4>Doing</h4>
-          <div class="work-items">
-            <% _(stage.get('inProgressWork')).each(function(workItem){ %>
-            <div class="work-item <%= workItem.get('color') %> rotate-<%= workItem.get('rotation') %>"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></div>
-            <% }) %>
-          </div>
+          <div class="doing work-items"/>  
         </div>
         <div class="span6">
           <h4>Ready</h4>
-          <div class="work-items">
-            <% _(stage.get('readyWork')).each(function(workItem){ %>
-            <div class="work-item <%= workItem.get('color') %> rotate-<%= workItem.get('rotation') %>"><%= _.template($('#work-item-template').html(), {workItem: workItem}) %></div>
-            <% }) %>
-          </div>
+          <div class="ready work-items" />
         </div>
       </div>
     </script>
 
     <script id="work-item-template" type="text/template">
       <div class="work-item-header"><%= workItem.get('name') %></div>
-      <% if(workItem.get('remainingTotalEffort') > 0) {%>
+      <div class="front <%= workItem.get('remainingTotalEffort') > 0 ? '' : 'hide' %>">
         <div>Analysis: <%= workItem.get('analysis') %></div>
         <div>Design: <%= workItem.get('design') %></div>
         <div>Code: <%= workItem.get('code') %></div>
         <div>Test: <%= workItem.get('test') %></div>
         <div>Release: <%= workItem.get('release') %></div>
         <div>Remaining: <%= workItem.get('remainingEffortInStage') %></div>
-      <% } else {%>
+      </div>
+      <div class="back <%= workItem.get('remainingTotalEffort') > 0 ? 'hide' : '' %>">
         <div>Workdays: <%= workItem.get('workTime') %></div>
         <div>Waitdays: <%= workItem.get('waitTime') %></div>
         <div>Total: <%= workItem.get('workTime') + workItem.get('waitTime') %></div>
-      <% }%>
+      </div>
 		</script>
 
 	</head>

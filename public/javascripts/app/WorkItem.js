@@ -22,29 +22,30 @@ var WorkItem = Backbone.Model.extend({
     //Get a random size of this workItem 0, 1, 2
     var size = Math.floor(Math.random() * 3);
     var totalSize = 0;
-    
+    var hours = 8;
+
     if(!args["analysis"]) {
-      var analysisSize = Math.round(Math.random() + size) + 1;
+      var analysisSize = ( Math.round(Math.random() + size) + 1 ) * hours;
       this.set("analysis", analysisSize);
       totalSize = totalSize + analysisSize;
     }
     if(!args["design"]){
-      var designSize = Math.round(Math.random() + size);
+      var designSize = ( Math.round(Math.random() + size)  ) * hours;
       this.set("design", designSize);
       totalSize = totalSize + designSize;
     }
     if(!args["code"]){
-      var codeSize = Math.round(Math.random() + size) + 3;
+      var codeSize = ( Math.round(Math.random() + size) + 3  ) * hours;
       this.set("code", codeSize);
       totalSize = totalSize + codeSize;
     }
     if(!args["test"]){
-      var testSize = Math.round(Math.random() + size) + 2;
+      var testSize = ( Math.round(Math.random() + size) + 2  ) * hours;
       this.set("test", testSize);
       totalSize = totalSize + testSize;
     }
     if(!args["release"]){
-      var releaseSize = Math.round(Math.random() + size);
+      var releaseSize = ( Math.round(Math.random() + size)  ) * hours;
       this.set("release", releaseSize);
       totalSize = totalSize + releaseSize;
     }
@@ -77,19 +78,28 @@ var WorkItem = Backbone.Model.extend({
     this.set("workTime", 0);
     this.set("waitTime", 0);
   }
-
-  
     
 });
 
 var WorkItemView = Backbone.View.extend({
   tagName:"div",
-  className:"work-item",
+  
+  events: { "click":"changeView"},
+
+  attributes : function () {
+    return {
+      class : "work-item " + this.model.get("color") + " rotate-" + this.model.get("rotation")
+    };
+  },
 
   render:function () {
     var template = _.template($("#work-item-template").html(), {workItem:this.model});
     this.$el.html(template);
     return this; 
       
+  },
+
+  changeView: function() {
+    this.$el.find(".front, .back").toggle();
   }
 });
