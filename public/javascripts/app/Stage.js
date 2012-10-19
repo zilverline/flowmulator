@@ -6,6 +6,7 @@ var Stage = ReadyWorkProvider.extend({
     nextStage:null,
     readyWorkProvider:null,
     wipLimit:1,
+    numberOfPeople:1,
     endStage:false
   },
 
@@ -36,6 +37,7 @@ var Stage = ReadyWorkProvider.extend({
         inProgressWork.push(work);
       } else {
         this.get("readyWork").push(work);
+        this.passWorkAndWaitTime(work);
       }
     }
     this.trigger("change:inProgressWork");
@@ -69,6 +71,9 @@ var Stage = ReadyWorkProvider.extend({
           inProgressWork.splice(cursor, 1);
           this.get("readyWork").push(work);
           this._fillInProgressWorkUpToWipLimit();
+
+          this.passWorkAndWaitTime(work);
+
         } else {
           cursor++;
         }
@@ -81,6 +86,12 @@ var Stage = ReadyWorkProvider.extend({
 
     this.trigger("change:inProgressWork");
     this.trigger("change:readyWork");
+  },
+
+  passWorkAndWaitTime:function (work) {
+    if(this.get("endStage")){
+      console.log(work.get("name"), " Total time: ", work.get("workTime") + work.get("waitTime") );
+    }
   },
 
   _updateTime:function () {
@@ -102,7 +113,14 @@ var Stage = ReadyWorkProvider.extend({
   },
 
   _updateVelocity:function () {
-    var velocity = this._randomVelocity();
+
+    var velocity = 0;
+    var numberOfWorkers = this.get("numberOfPeople");
+
+    for(var x = 0; x < numberOfWorkers; x++){
+      velocity += this._randomVelocity();
+    }
+     
     this.set("velocity", velocity);
     this.set("remainingVelocity", velocity);
   },
@@ -120,11 +138,12 @@ var StageView = Backbone.View.extend({
 
   events:{
     "click .run-stage":"runStage",
-    "change .wip-limit":"updateWipLimit"
+    "change .wip-limit":"updateWipLimit",
+    "change .number-of-people":"updateNumberOfWorkers"
   },
 
   initialize:function () {
-    _.bindAll(this, "render", "updateWipLimit");
+    _.bindAll(this, "render", "updateWipLimit", "updateNumberOfWorkers");
     this.model.bind("change:velocity", this.render);
     this.model.bind("change:inProgressWork", this.render);
     this.model.bind("change:readyWork", this.render);
@@ -153,5 +172,9 @@ var StageView = Backbone.View.extend({
 
   updateWipLimit: function(event) {
     this.model.set("wipLimit", event.target.value);
+  },
+
+  updateNumberOfWorkers: function(event) {
+    this.model.set("numberOfPeople", event.target.value);
   }
 });

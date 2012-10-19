@@ -24,6 +24,8 @@ body {
 
 #control-panel {
   margin: 20px 0 20px 0;
+  font-family: 'eraserregular', serif;
+  color: #fff;
 }
 
 .stage-header {
@@ -120,7 +122,13 @@ label {
 }
 
 .wip-limit {
-  width: 35px;
+  width: 31px;
+  line-height: 15px;
+  height: 15px;
+}
+
+.number-of-people {
+  width: 22px;
   line-height: 15px;
   height: 15px;
 }
