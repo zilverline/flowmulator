@@ -20,12 +20,27 @@ body {
 
 .container-fluid {
   min-height: 100%;
+  overflow: hidden;
 }
 
 #control-panel {
   margin: 20px 0 20px 0;
   font-family: 'eraserregular', serif;
   color: #fff;
+  float: left;
+  width: 50%;
+}
+
+#metrics {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-left: 1px dashed #CCC;
+  margin: 20px 0 20px 0;
+  font-family: 'eraserregular', serif;
+  color: #fff;
+  float: right;
+  width: 50%;
 }
 
 .stage-header {
@@ -36,11 +51,17 @@ body {
 #board {
   white-space: nowrap;
   margin-bottom: 20px;
+  font-family: 'eraserregular', serif;
+  font-weight: normal;
+  color: #fff;
+  clear: both;
+  width: 100%;
 }
 
-#board {
-  font-family: 'eraserregular', serif;
-  color: #fff;
+#board h1,
+#board h2,
+#board h3 {
+  font-weight: normal;
 }
 
 .work-item-header {

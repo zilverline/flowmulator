@@ -1,4 +1,8 @@
 var ControlPanel = Backbone.Model.extend({
+
+  runHunderdDays:function(){
+    this.trigger("runHunderdDays");
+  },
   runTenDays: function() {
     this.trigger("runTenDays");
   },
@@ -19,6 +23,7 @@ var ControlPanelView = Backbone.View.extend({
   className: "row-fluid",
 
   events: {
+    "click #run-hunderd-days": "runHunderdDays",
     "click #run-ten-days": "runTenDays",
     "click #run-one-day": "runOneDay",
     "click #restart": "resetBoard"
@@ -27,6 +32,9 @@ var ControlPanelView = Backbone.View.extend({
     var template = _.template($("#control-panel-template").html(), {});
     this.$el.html(template);
     return this;
+  },
+  runHunderdDays:function(){
+    this.model.runHunderdDays();
   },
   runTenDays: function() {
     this.model.runTenDays();

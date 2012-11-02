@@ -21,15 +21,25 @@
 		<script type="text/javascript" src="javascripts/app/Board.js"></script>
 		<script type="text/javascript" src="javascripts/app/Flowmulator.js"></script>
 		<script type="text/javascript" src="javascripts/app/ControlPanel.js"></script>
+    <script type="text/javascript" src="javascripts/app/Metrics.js"></script>
 
 		<script type="text/javascript" src="javascripts/boot.js"></script>
 
     <script id="control-panel-template" type="text/template">
       <div class="span12">
+        <button id="run-hunderd-days" class="btn">Run 100 days</button>
         <button id="run-ten-days" class="btn">Run 10 days</button>
         <button id="run-one-day" class="btn">Run 1 day</button>
         <button id="restart" class="btn">RESTART</button>
-        <h4>Average time to complete workItems: </h4>
+      </div>
+    </script>
+
+    <script id="metrics-template" type="text/template">
+      <div class="span12">
+        <h4>Average work time: <%= metrics.get("averageWorkTime") %></h4>
+        <h4>Average wait time: <%= metrics.get("averageWaitTime") %></h4>
+        <h4>Days passed: <%= metrics.get("daysPassed") %></h4>
+
       </div>
     </script>
 
