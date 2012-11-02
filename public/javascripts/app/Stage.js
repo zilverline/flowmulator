@@ -7,15 +7,19 @@ var Stage = ReadyWorkProvider.extend({
     readyWorkProvider:null,
     wipLimit:1,
     numberOfPeople:1,
-    endStage:false
+    endStage:false,
+    daysPassed: 0,
+    numberOfWorkItems: 0
   },
 
-  initialize:function () {
+  initialize:function (args) {
     this.constructor.__super__.initialize.apply(this, arguments);
 
     if (!this.get("inProgressWork")) {
       this.set("inProgressWork", new Array());
     }
+
+    this.set("metrics", args.metrics);
   },
 
   runStage:function () {
@@ -23,6 +27,7 @@ var Stage = ReadyWorkProvider.extend({
     this._fillInProgressWorkUpToWipLimit();
     this._updateTime();
     this._distributeVelocityAmongstInProgressWork();
+    
   },
 
   _fillInProgressWorkUpToWipLimit:function () {
@@ -90,11 +95,18 @@ var Stage = ReadyWorkProvider.extend({
 
   passWorkAndWaitTime:function (work) {
     if(this.get("endStage")){
-      console.log(work.get("name"), " Total time: ", work.get("workTime") + work.get("waitTime") );
+      var metricPanel = this.get("metrics");
+      metricPanel.newStoryDone(work);
+
+      if(this.get("readyWork").length >= this.get("numberOfWorkItems")){
+        metricPanel.set("daysPassed", this.get("daysPassed") );
+      }
     }
   },
 
   _updateTime:function () {
+
+    this.set("daysPassed", this.get("daysPassed") + 1);
     
     var workItems = this.get("inProgressWork");
     for (var i = 0; i < workItems.length; i++) {

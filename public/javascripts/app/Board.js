@@ -3,6 +3,13 @@ var Board = Backbone.Model.extend({
     backlog:null,
     stages:[]
   },
+  
+  runHunderdDays:function (){
+    var self = this;
+    _(100).times(function () {
+      self.runOneDay();
+    });
+  },
 
   runTenDays:function () {
     var self = this;
@@ -16,7 +23,9 @@ var Board = Backbone.Model.extend({
     _(reversedStages).forEach(function (stage) {
       stage.runStage();
     });
-  },
+    
+  }
+
 });
 
 var BoardView = Backbone.View.extend({
