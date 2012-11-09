@@ -1,6 +1,6 @@
 $(function () {
 
-  var NUMBER_OF_WORKITEMS = 10;
+  var NUMBER_OF_WORKITEMS = 50;
 
   var createWorkItems = function () {
     var workList = [];
@@ -13,7 +13,7 @@ $(function () {
   };
 
   window.createStages = function (backlog, metrics) {
-    var DEFAULT_WIP_LIMIT = 6;
+    var DEFAULT_WIP_LIMIT = 8;
     var analysis = new Stage({name:"Analysis", readyWorkProvider:backlog, wipLimit: DEFAULT_WIP_LIMIT, metrics:metrics});
     var design = new Stage({ name:"Design", readyWorkProvider:analysis, wipLimit: DEFAULT_WIP_LIMIT, metrics:metrics});
     var code = new Stage({ name:"Code", readyWorkProvider:design, wipLimit: DEFAULT_WIP_LIMIT, metrics:metrics});
